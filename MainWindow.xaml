@@ -1,0 +1,67 @@
+﻿<Window x:Class="generateDocs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:generateDocs"
+        mc:Ignorable="d"
+        Title="Генератор Word" Icon="/icon.ico"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        Height="500" Width="750"
+        MinHeight="500" MinWidth="750"
+        MaxHeight="500" MaxWidth="750">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Выбрать Excel" Width="120" Click="BtnSelectExcel_Click"/>
+            <TextBox x:Name="TxtExcelPath" Width="300" Margin="10,0,0,0" IsReadOnly="True"/>
+            <Button Content="Помощь" Width="120" Margin="150,0,0,0"
+                    Click="HelpButton_Click"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Выбрать шаблон Word" Width="150" Click="BtnSelectWord_Click"/>
+            <TextBox x:Name="TxtWordPath" Width="300" Margin="10,0,0,0" IsReadOnly="True"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <TextBlock Text="Плейсхолдеры и соответствующие колонки Excel:" FontWeight="Bold"/>
+            <DataGrid x:Name="PlaceholdersGrid" AutoGenerateColumns="False" CanUserAddRows="False" Height="250" Margin="0,5,0,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Плейсхолдер в Word" Binding="{Binding Placeholder}" Width="*"/>
+                    <DataGridComboBoxColumn Header="Колонка Excel" 
+                        SelectedItemBinding="{Binding Column}" 
+                        ItemsSource="{Binding DataContext.ExcelColumns, RelativeSource={RelativeSource AncestorType=Window}}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,5,0,0">
+            <Button Content="Добавить плейсхолдер" Width="150" Click="BtnAddPlaceholder_Click"/>
+            <Button Content="Удалить плейсхолдер" Width="150" Margin="10,0,0,0" Click="BtnRemovePlaceholder_Click"/>
+            <CheckBox x:Name="ChkAutoNumber" Content="Автоматическая нумерация файлов" Margin="10,0,0,0" Checked="ChkAutoNumber_Checked" Unchecked="ChkAutoNumber_Unchecked"/>
+            <ComboBox x:Name="CmbFileNameColumn" Width="150" Margin="10,0,0,0" IsEnabled="True"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10,0,10">
+            <Button Content="Выбрать папку для файлов" Width="180" Click="BtnSelectOutput_Click"/>
+            <TextBox x:Name="TxtOutputPath" Width="300" Margin="10,0,0,0" IsReadOnly="True"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Vertical">
+            <ProgressBar x:Name="ProgressBar" Height="20" Minimum="0" Maximum="100"/>
+            <TextBox x:Name="TxtLog" Height="100" Margin="0,5,0,0" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+            <Button Content="Сгенерировать документы" Width="200" Margin="0,5,0,0" HorizontalAlignment="Left" Click="BtnGenerate_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
