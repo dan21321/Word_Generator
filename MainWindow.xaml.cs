@@ -6,14 +6,18 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+
+using Word_Generator.Resources;
 using Word = Microsoft.Office.Interop.Word;
 
-namespace generateDocs
+namespace Word_Generator
 {
     public partial class MainWindow : Window
     {
@@ -58,7 +62,7 @@ namespace generateDocs
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при чтении Excel: " + ex.Message);
+                MessageBox.Show(Strings.ErrorExcel + ex.Message);
             }
         }
 
@@ -98,7 +102,7 @@ namespace generateDocs
             // все файлы должеы быть выбраны
             if (!File.Exists(TxtExcelPath.Text) || !File.Exists(TxtWordPath.Text) || string.IsNullOrEmpty(TxtOutputPath.Text))
             {
-                MessageBox.Show("Выберите все файлы и папку для вывода!");
+                MessageBox.Show(Strings.ErrorSelectFiles);
                 return;
             }
 
@@ -118,7 +122,7 @@ namespace generateDocs
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ошибка при конвертации .doc → .docx:\n" + ex.Message);
+                    MessageBox.Show(Strings.ErrorConvert + ex.Message);
                     return;
                 }
             }
@@ -197,18 +201,18 @@ namespace generateDocs
                         // Обновляем UI безопасно
                         Dispatcher.Invoke(() =>
                         {
-                            TxtLog.AppendText($"Создан документ: {outputPath}\n");
+                            TxtLog.AppendText($"{Strings.TxtLogCreateDoc}{outputPath}\n");
                             ProgressBar.Value = (double)fileNumber / totalRows * 100;
                         });
 
                         fileNumber++;
                     }
 
-                    Dispatcher.Invoke(() => MessageBox.Show("Генерация завершена!"));
+                    Dispatcher.Invoke(() => MessageBox.Show(Strings.TxtFinishGenerate));
                 }
                 catch (Exception ex)
                 {
-                    Dispatcher.Invoke(() => MessageBox.Show("Ошибка: " + ex.Message));
+                    Dispatcher.Invoke(() => MessageBox.Show(Strings.Error + ex.Message));
                 }
             });
         }
