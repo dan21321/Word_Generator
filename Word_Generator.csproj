@@ -29,8 +29,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -258,10 +258,10 @@
     <Error Condition="!Exists('packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.6.0.0\build\Costura.Fody.targets'))" />
   </Target>
   <Import Project="packages\Costura.Fody.6.0.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" />
-	<Target Name="CopyUpdaterApp" AfterTargets="Build">
-		<ItemGroup>
-			<UpdaterFiles Include="$(SolutionDir)libs\AutoUpdater\UpdaterApp\bin\$(Configuration)\*.exe" />
-		</ItemGroup>
-		<Copy SourceFiles="@(UpdaterFiles)" DestinationFolder="$(OutputPath)" />
-	</Target>
+  <Target Name="CopyUpdaterApp" AfterTargets="Build">
+    <ItemGroup>
+      <UpdaterFiles Include="$(SolutionDir)libs\AutoUpdater\UpdaterApp\bin\$(Configuration)\*.exe" />
+    </ItemGroup>
+    <Copy SourceFiles="@(UpdaterFiles)" DestinationFolder="$(OutputPath)" />
+  </Target>
 </Project>
