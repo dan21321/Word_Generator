@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+
+using Updater;
 
 using Word_Generator.Resources;
 using Word = Microsoft.Office.Interop.Word;
@@ -28,6 +31,35 @@ namespace Word_Generator
         {
             InitializeComponent();
             PlaceholdersGrid.ItemsSource = Placeholders;
+            Loaded += async (s, e) => await updater();
+        }
+
+        public async Task updater() {
+            var updater = new AppUpdater("dan21321", "Word_Generator");
+            var update = await updater.UpdateAsync();
+
+            if (update != null)
+            {
+                MessageBoxResult result = MessageBox.Show($"{Strings.UpdaterText}", $"{Strings.UpdaterTitle}", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.Yes);
+                if (result == MessageBoxResult.Yes) {
+                    try {
+                        var updaterPath = Path.Combine(AppContext.BaseDirectory, "UpdaterApp.exe");
+                        var args = $"\"{update.DownloadUrl}\" \"{AppContext.BaseDirectory}\"";
+                        var started = Process.Start(new ProcessStartInfo
+                        {
+                            FileName = updaterPath,
+                            Arguments = $"\"{update.DownloadUrl}\" \"{AppContext.BaseDirectory.TrimEnd('\\')}\"",
+                            CreateNoWindow = true,
+                            UseShellExecute = false
+                        });
+                        Application.Current.Shutdown();
+                    }
+                    catch (Exception ex) {
+                        MessageBox.Show($"{Strings.Error}{ex}");
+                    }
+                }
+                return;
+            }
         }
 
         // открываем выбор файла Excel

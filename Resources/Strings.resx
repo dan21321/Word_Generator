@@ -204,4 +204,10 @@ The program will take the formatting of these elements (font, size, etc.)
   <data name="AppNameHelp" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="UpdaterTitle" xml:space="preserve">
+    <value>Check updates</value>
+  </data>
+  <data name="UpdaterText" xml:space="preserve">
+    <value>An update is available! Update the app?</value>
+  </data>
 </root>

@@ -276,5 +276,23 @@ namespace Word_Generator.Resources {
                 return ResourceManager.GetString("TxtLogCreateDoc", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на An update is available! Update the app?.
+        /// </summary>
+        public static string UpdaterText {
+            get {
+                return ResourceManager.GetString("UpdaterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Check updates.
+        /// </summary>
+        public static string UpdaterTitle {
+            get {
+                return ResourceManager.GetString("UpdaterTitle", resourceCulture);
+            }
+        }
     }
 }

@@ -204,4 +204,10 @@
   <data name="AppNameHelp" xml:space="preserve">
     <value>Помощь</value>
   </data>
+  <data name="UpdaterTitle" xml:space="preserve">
+    <value>Проверка обновлений</value>
+  </data>
+  <data name="UpdaterText" xml:space="preserve">
+    <value>Доступно обновление! Обновить приложение?</value>
+  </data>
 </root>
