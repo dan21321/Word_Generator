@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-using Updater;
+using UpdaterLib;
 
 using Word_Generator.Resources;
 using Word = Microsoft.Office.Interop.Word;

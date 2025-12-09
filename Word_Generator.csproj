@@ -241,6 +241,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="libs\AutoUpdater\UpdaterLib\UpdaterLib.csproj">
+      <Project>{af16a274-01a2-4713-8494-c3e54e92fdaf}</Project>
+      <Name>UpdaterLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Fody.6.8.2\build\Fody.targets" Condition="Exists('packages\Fody.6.8.2\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -252,4 +258,10 @@
     <Error Condition="!Exists('packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.6.0.0\build\Costura.Fody.targets'))" />
   </Target>
   <Import Project="packages\Costura.Fody.6.0.0\build\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.6.0.0\build\Costura.Fody.targets')" />
+	<Target Name="CopyUpdaterApp" AfterTargets="Build">
+		<ItemGroup>
+			<UpdaterFiles Include="$(SolutionDir)libs\AutoUpdater\UpdaterApp\bin\$(Configuration)\*.exe" />
+		</ItemGroup>
+		<Copy SourceFiles="@(UpdaterFiles)" DestinationFolder="$(OutputPath)" />
+	</Target>
 </Project>

@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="libs/AutoUpdater/UpdaterApp/UpdaterApp.csproj" Id="a46949e5-09a3-4304-9e18-86c0b3257b71" />
+  <Project Path="libs/AutoUpdater/UpdaterLib/UpdaterLib.csproj" Id="af16a274-01a2-4713-8494-c3e54e92fdaf" />
   <Project Path="Word_Generator.csproj" Id="b78a2514-59e4-4753-8d52-41361bcba311" />
 </Solution>
