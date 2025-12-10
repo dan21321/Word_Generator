@@ -52,7 +52,7 @@ namespace Word_Generator
                             CreateNoWindow = true,
                             UseShellExecute = false
                         });
-                        Application.Current.Shutdown();
+                        Environment.Exit(0);
                     }
                     catch (Exception ex) {
                         MessageBox.Show($"{Strings.Error}{ex}");
